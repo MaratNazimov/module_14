@@ -12,6 +12,11 @@ def initiate_db():
     image BLOB)
     ''')
 
+def get_all_products():
+    cursor.execute("SELECT * FROM Buying")
+    buying = cursor.fetchall()
+    return buying
+
 def convert(filename):
     with open(filename, 'rb') as file:
         read_f = file.read()
