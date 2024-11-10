@@ -60,12 +60,10 @@ async def main_menu(message):
 
 @dp.message_handler(text = "Купить")
 async def det_buying_list(message):
-    cursor.execute("SELECT Product, Description, Price, image FROM Buying")
-    buying = cursor.fetchall()
-    for product in buying:
-        image = BytesIO(product[3])
+    for product in get_all_products():
+        image = BytesIO(product[4])
         image.name = "image.png"
-        await message.answer_photo(image, f"Название : {product[0]} | Описание : {product[1]} | Цена : {product[2]}")
+        await message.answer_photo(image, f"Название : {product[1]} | Описание : {product[2]} | Цена : {product[3]}")
     await message.answer("Выберите продукт для покупки: ", reply_markup = inline_kb_buy)
 
 @dp.callback_query_handler(text = "product_buying")
